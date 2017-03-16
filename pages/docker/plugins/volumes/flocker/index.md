@@ -82,3 +82,50 @@ flocker-ca create-api-certificate <client_name>
 flocker-ca create-api-certificate plugin
 ```
 将生成的plugin.crt、plugin.key复制到每个flocker节点的目录中(/etc/flocker)
+#五、启动flocker相关服务
+启动flocker控制节点服务
+```
+systemctl enable flocker-control
+systemctl start flocker-control
+```
+若开启了防火墙，需要设置flocker服务规则
+```
+firewall-cmd --reload
+firewall-cmd --permanent --add-service flocker-control-api
+firewall-cmd --add-service flocker-control-api
+firewall-cmd --reload
+firewall-cmd --permanent --add-service flocker-control-agent
+firewall-cmd --add-service flocker-control-agent
+```
+#六、配置节点服务和存储后端
+登录flocker代理节点，配置flocker server，进入代理节点/etc/flocker目录
+```
+cd /etc/flocker
+vi agent.yml
+
+"version": 1
+"control-service":
+   "hostname": "flkn1"
+   "port": 4524
+
+# The dataset key below selects and configures a dataset backend (see below: aws/openstack/etc).
+# All nodes will be configured to use only one backend
+
+"dataset":
+   "backend": "loopback"
+   "root_path": "/var/lib/flocker/loopback"
+```
+[可支持的后端存储](https://flocker-docs.clusterhq.com/en/latest/flocker-features/storage-backends.html#supported-backends)<br>
+本例使用loopback作为存储后端，但是它不支持数据移动，即不同节点间的volume的数据不会同步<br>
+配置完成后，启动代理服务
+```
+systemctl enable flocker-dataset-agent
+systemctl start flocker-dataset-agent
+systemctl enable flocker-container-agent
+systemctl start flocker-container-agent
+```
+启动flocker的docker插件服务
+```
+systemctl enable flocker-docker-plugin
+systemctl start flocker-docker-plugin
+```
