@@ -3,7 +3,7 @@ title: OpenLDAP
 layout: post
 theme: jekyll-theme-cayman
 ---
-# OpenLDAP+CentOS7.0安装部署
+# OpenLDAP+CentOS7.0安装部署1
 
 ## 安装LDAP Server
 ```
