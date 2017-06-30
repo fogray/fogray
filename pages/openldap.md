@@ -1,5 +1,6 @@
 ---
 layout: post
+theme: jekyll-theme-cayman
 ---
 # OpenLDAP+CentOS7.0安装部署
 
