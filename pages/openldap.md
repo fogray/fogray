@@ -1,4 +1,5 @@
 ---
+title: OpenLDAP
 layout: post
 theme: jekyll-theme-cayman
 ---
