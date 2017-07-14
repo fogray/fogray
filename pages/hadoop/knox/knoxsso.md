@@ -157,7 +157,7 @@ Ambari Server 'sync-ldap' completed successfully.
 同步成功后，ambari ldap设置完成
 ### 生成knox认证证书
 ```
-$  keytool -exportcert -keystore data/security/keystores/gateway.jks -alias gateway-identity -rfc -file gateway.pem
+$  keytool -exportcert -keystore /var/lib/knox/data-2.6.0.3-8/security/keystores/gateway.jks -alias gateway-identity -rfc -file /root/gateway.pem
 ```
 ### ambari sso设置
 参考[https://cwiki.apache.org//confluence/display/KNOX/Ambari+via+KnoxSSO+and+Default+IDP](https://cwiki.apache.org//confluence/display/KNOX/Ambari+via+KnoxSSO+and+Default+IDP)
