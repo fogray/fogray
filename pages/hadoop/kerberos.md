@@ -1,4 +1,4 @@
-# 环境准备
+# Kerberos的安装和配置
 # CentOS
 ## yum安装+配置
 ```
