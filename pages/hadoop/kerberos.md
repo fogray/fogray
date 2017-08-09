@@ -1,4 +1,38 @@
-## 环境准备
+# 环境准备
+# CentOS
+## yum安装+配置
+```
+# yum install -y krb5-server krb5-workstation pam_krb5
+# cd  /var/kerberos/krb5kdc
+# vi kadm.acl
+*/admin@AMBARI.APACHE.ORG       *   #修改为AMBARI.APACHE.ORG
+
+# vi kdc.conf
+[kdcdefaults]
+ kdc_ports = 88
+ kdc_tcp_ports = 88
+
+[realms]
+ AMBARI.APACHE.ORG = {               #修改为AMBARI.APACHE.ORG
+  #master_key_type = aes256-cts
+  acl_file = /var/kerberos/krb5kdc/kadm5.acl
+  dict_file = /usr/share/dict/words
+  admin_keytab = /var/kerberos/krb5kdc/kadm5.keytab
+  supported_enctypes = aes256-cts:normal aes128-cts:normal des3-hmac-sha1:normal arcfour-hmac:normal camellia256-cts:normal camellia128-cts:normal des-hmac-sha1:normal des-cbc-md5:normal des-cbc-crc:normal
+ }
+```
+## 创建kdc数据库
+```
+# kdb5_util create -s -r AMBARI.APACHE.ORG   # 该过程较慢
+
+```
+## 启动kdc
+```
+# systemctl start krb5kdc kadmin
+# systemctl enable krb5kdc kadmin
+```
+
+# Ubuntu
 ambari启用kerberos需要有一个独立的KDC server
 ```
 $ vagrant up u1404
