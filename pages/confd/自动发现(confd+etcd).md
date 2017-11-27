@@ -1,5 +1,21 @@
 ## 自动发现技术研究
 通过confd监听etcd数据变化，根据定义的配置模板自动生成配置文件
+### Confd安装
+下载：
+```
+curl -L  https://github.com/coreos/etcd/releases/download/v2.3.7/etcd-v2.3.7-linux-amd64.tar.gz -o  etcd-v2.3.7-linux-amd64.tar.gz
+```
+解压：
+```
+tar -zxvf  etcd-v2.3.7-linux-amd64.tar.gz  
+mv  etcd-v2.3.7-linux-amd64/etcd /usr/local/bin/etcd
+mv  etcd-v2.3.7-linux-amd64/etcdctl  /usr/local/bin/etcdctl
+```
+配置：
+```
+mkdir -p /etc/confd/{templates,conf.d}
+```
+
 ### Confd配置
 1、创建模板源文件
 
