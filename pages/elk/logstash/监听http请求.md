@@ -9,6 +9,11 @@ wget https://artifacts.elastic.co/downloads/logstash/logstash-6.0.0.tar.gz
 ```
 tar -xf logstash-6.0.0.tar.gz -C /opt/
 ```
+安装jdbc-output插件：
+```
+cd /opt/logstash-6.0.0/bin
+./logstash-plugin install logstash-output-jdbc
+```
 ## Logstash配置文件
 /opt/logstash/conf/http-log.conf:
 ```
