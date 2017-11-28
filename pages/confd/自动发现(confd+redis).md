@@ -3,15 +3,13 @@
 ### Confd安装
 下载：
 ```
-curl -L  https://github.com/coreos/etcd/releases/download/v2.3.7/etcd-v2.3.7-linux-amd64.tar.gz -o  etcd-v2.3.7-linux-amd64.tar.gz
+curl -L https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 
 ```
-解压：
+将下载的 confd-0.11.0-linux-amd64 文件复制到/usr/local/bin/目录，并重命名为confd：
 ```
-tar -zxvf  etcd-v2.3.7-linux-amd64.tar.gz  
-mv  etcd-v2.3.7-linux-amd64/etcd /usr/local/bin/etcd
-mv  etcd-v2.3.7-linux-amd64/etcdctl  /usr/local/bin/etcdctl
+cp confd-0.11.0-linux-amd64 /usr/local/bin/confd
 ```
-配置：
+创建confd工作目录：
 ```
 mkdir -p /etc/confd/{templates,conf.d}
 ```
@@ -30,11 +28,11 @@ keys = [
 check_cmd = ""
 reload_cmd = "cd /etc/confd/conf.d & java ConfdTemplateSplit /etc/confd/redis_kettle_list.conf" 
 ```
-src: 指定配置文件模板文件
-dest：根据模板文件生成的配置模板列表文件，生成的该文件内容是根据数据key不同生成的若干个配置集合
-mode: 生成文件的权限
-keys：etcd中存放数据的目录
-check_cmd: 检查配置文件脚本，如:nginx -t -c {{.src}}，验证nginx配置文件正确性
+src: 指定配置文件模板文件<br>
+dest：根据模板文件生成的配置模板列表文件，生成的该文件内容是根据数据key不同生成的若干个配置集合<br>
+mode: 生成文件的权限<br>
+keys：etcd中存放数据的目录<br>
+check_cmd: 检查配置文件脚本，如:nginx -t -c {{.src}}，验证nginx配置文件正确性<br>
 reload_cmd: 重新加载配置文件脚本，如:nginx -s reload，重启nginx;  该例中，此处指定配置模板表文件(/etc/confd/redis_kettle_list.conf)的处理脚本
 
 2、创建配置文件模板文件
@@ -52,7 +50,7 @@ check_cmd = ""  #此处可以指定nginx或者kettle的配置检查脚本命令
 reload_cmd = ""  #此处可以指定nginx或者kettle的重新加载脚本命令
 {{end}}
 ```
-说明：循环读取etcd数据库的/kettle目录下的所有key，key的值均为json字符串数据，解析出json的所需字段，填入模板中，生成配置文件
+说明：循环读取etcd数据库的/kettle目录下的所有key，key的值均为json字符串数据，解析出json的所需字段，填入模板中，生成配置文件<br>
 
 3、上述两个步骤的目的是生成[1]中dest指定的配置模板列表文件：/etc/confd/redis_kettle_list.conf，该文件格式为：
 ```
@@ -75,9 +73,9 @@ check_cmd = ""
 reload_cmd = ""
 ......
 ```
-该文件生成后，confd就会自动执行[1]步骤reload_cmd指定的脚本命令，解析该文件的[template]标签，每个[template]标签的内容，均生成一个独立的配置文件，该配置文件即为最终的能够被第三方服务使用的配置文件
+该文件生成后，confd就会自动执行[1]步骤reload_cmd指定的脚本命令，解析该文件的[template]标签，每个[template]标签的内容，均生成一个独立的配置文件，该配置文件即为最终的能够被第三方服务使用的配置文件<br>
 
-4、测试
+4、测试<br>
 启动confd：
 ```
 confd -config-file /etc/confd/conf.d/redis_kettle.toml -interval 10 -backend redis -node http://localhost:2379
