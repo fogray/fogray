@@ -1,6 +1,5 @@
 # Logstash监听HTTP请求
 将一个http请求POST过来的json格式字符串数据解析，并转储到postgresql数据库中<br>
-Logstash安装部署，请参照[]()
 ## Logstash安装
 下载安装包
 ```
