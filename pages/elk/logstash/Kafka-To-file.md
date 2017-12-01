@@ -1,4 +1,4 @@
-# Logstash实现Kafka数据到本地文件的存储
+# Logstash实现Kafka数据到Postgres数据库
 场景：<br>
   * 实现后台与各项目的表数据同步
   * 各项目均有一个kafka生产端，用于查询所属项目的表数据<br>
