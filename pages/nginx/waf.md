@@ -105,13 +105,6 @@ http {
         access_log  logs/localhost.access.log;
         
         location / {
-            valid_referers none blocked *.example.com c7304.example.com;   
-            if ($invalid_referer) {   
-               return 403;   
-            }
-            if ($request_method ~ 'BOGUS'){
-              return 405;
-            }
             proxy_pass http://127.0.0.1:8080;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header Referer $invalid_referer;
