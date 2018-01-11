@@ -63,7 +63,7 @@ config file testing succeeded
 ## 添加默认配置到LDAP
 将所有的配置LDAP server, 添加到LDAP schemas中
 ```
-$ systemc start slapd   #启动slapd服务
+$ systemctl start slapd   #启动slapd服务
 $ cd /etc/openldap/schema/
 $ ldapadd -Y EXTERNAL -H ldapi:/// -D "cn=config" -f cosine.ldif
 $ ldapadd -Y EXTERNAL -H ldapi:/// -D "cn=config" -f nis.ldif
