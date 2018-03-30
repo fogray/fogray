@@ -11,7 +11,6 @@
 data: csv格式数据（以逗号分隔）<br>
 tabname：data数据所属表名称
 
-
 ## Logstash配置
 ```
 input {
